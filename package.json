@@ -1,0 +1,62 @@
+{
+  "name": "node-front-template",
+  "version": "1.0.0",
+  "description": "template for used for back end based on node.js",
+  "main": "dist/app.js",
+  "scripts": {
+    "develop": "PORT=4002 DEBUG=node-back-template* nodemon -w dist -e js dist/app.js",
+    "release": "pm2 start dist/app.js  -i 0 --name node-back-template --watch "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greedlab/node-back-template.git"
+  },
+  "keywords": [
+    "node.js",
+    "back",
+    "koa2",
+    "template"
+  ],
+  "author": "Bell <bell@greedlab.com> ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greedlab/node-back-template/issues"
+  },
+  "homepage": "https://github.com/greedlab/node-back-template#readme",
+  "engines": {
+    "node": ">= 4"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.9.1",
+    "bluebird": "^3.4.0",
+    "koa": "^2.0.0",
+    "koa-bodyparser": "^3.1.0",
+    "koa-favicon": "^2.0.0",
+    "koa-logger": "^2.0.0",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-eslint": "^6.0.4",
+    "babel-plugin-transform-async-to-module-method": "^6.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "eslint": "^2.11.1",
+    "glob": "^7.0.4",
+    "gulp-babel": "^6.1.2",
+    "gulp-changed": "^1.3.0",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.1.0",
+    "gulp-rev-collector": "^1.0.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-watch": "^4.3.6",
+    "imagemin-pngquant": "^5.0.0",
+    "run-sequence": "^1.2.1"
+  }
+}
