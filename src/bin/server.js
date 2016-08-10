@@ -1,35 +1,41 @@
 
-const koa = require('koa');
-const app = new koa();
-const logger = require('koa-logger');
-const favicon = require('koa-favicon');
-const serve = require('koa-static');
-const path = require('path');
+import koa from 'koa';
+import logger from 'koa-logger';
+import bodyParser from 'koa-bodyparser';
+import mongoose from 'mongoose';
+import passport from 'koa-passport';
 
-import config from '../config/index';
-import index from '../routes/index';
-import test from '../routes/test';
+import config from '../config';
+import home from '../routes/home';
+import user from '../routes/user';
+
+const app = new koa();
 
 // router
 
 app
-    .use(index.router.routes())
-    .use(index.router.allowedMethods())
-    .use(test.router.routes())
-    .use(test.router.allowedMethods());
-
-// static
-
-app.use(serve(path.join(__dirname,'../assets')));
+    .use(home.router.routes())
+    .use(home.router.allowedMethods())
+    .use(user.router.routes())
+    .use(user.router.allowedMethods());
 
 // logger
 
 app.use(logger());
 
-// favicon
+// mongodb
 
-app.use(favicon(path.join(__dirname,'../assets/favicon.ico')));
+mongoose.connect(config.database);
+
+// bodyParser
+
+app.use(bodyParser());
+
+// passport
+
+require('../config/passport');
+app.use(passport.initialize());
 
 // listen
 
-app.listen(process.env.PORT || config.port);
+app.listen(config.port);

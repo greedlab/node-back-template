@@ -26,3 +26,8 @@ $ npm install
 $ gulp release
 $ npm run release
 ```
+
+## Thanks
+
+* [koa2-api-boilerplate](https://github.com/adrianObel/koa2-api-boilerplate)
+
