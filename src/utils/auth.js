@@ -2,15 +2,14 @@
  * Created by Bell on 16/8/10.
  */
 
-import User from '../models/users'
-import config from '../../config'
-import { getToken } from '../utils/auth'
-import { verify } from 'jsonwebtoken'
+import User from '../models/user';
+import config from '../config';
+import { verify } from 'jsonwebtoken';
 
 /**
  * get token from request header
  *
- * @param ctx
+ * @param ctx ctx.request.header.authorization = "Bearer <token>"
  * @returns {*}
  */
 export function getToken(ctx) {
@@ -30,7 +29,13 @@ export function getToken(ctx) {
     return null;
 }
 
-
+/**
+ * ensure user login successfully
+ *
+ * @param ctx ctx.request.header.authorization = "Bearer <token>"
+ * @param next
+ * @returns {*}
+ */
 export async function ensureUser(ctx, next) {
     const token = getToken(ctx);
 

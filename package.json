@@ -4,7 +4,7 @@
   "description": "template for used for back end based on node.js",
   "main": "dist/app.js",
   "scripts": {
-    "develop": "PORT=4002 DEBUG=node-back-template* nodemon -w dist -e js dist/app.js",
+    "develop": "PORT=4002 DEBUG=node-back-template* NODE_ENV=development nodemon -w dist -e js dist/app.js",
     "release": "pm2 start dist/app.js  -i 0 --name node-back-template --watch "
   },
   "repository": {
@@ -52,6 +52,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "eslint": "^2.11.1",
     "glob": "^7.0.4",
+    "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-changed": "^1.3.0",
     "gulp-plumber": "^1.1.0",

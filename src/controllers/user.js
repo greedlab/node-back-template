@@ -5,7 +5,48 @@
 import passport from 'koa-passport';
 import User from '../models/user';
 
+/**
+ * list users
+ *
+ * @example curl -H "Authorization: Bearer <token>" -X POST localhost:4002/user/list
+ *
+ * @param ctx
+ * @param next
+ * @returns {*}
+ */
+export async function list(ctx, next) {
+    try {
+        const users = await User.find();
+        if (!users) {
+            ctx.throw(404);
+        }
+        ctx.body = {
+            users
+        };
+    } catch (err) {
+        if (err === 404 || err.name === 'CastError') {
+            ctx.throw(404);
+        }
+
+        ctx.throw(500);
+    }
+
+    if(next) {
+        return next();
+    };
+}
+
+/**
+ * register
+ *
+ * @example curl -H "Content-Type: application/json" -X POST -d '{ "username": "bell", "password": "secretpasas" }' localhost:4002/user/register
+ * @param ctx
+ * @param next
+ * @returns {*}
+ */
 export async function register(ctx, next) {
+    console.log(ctx.request.body);
+    console.log(ctx.req.body);
     const user = new User(ctx.request.body);
     try {
         await user.save();
@@ -25,11 +66,17 @@ export async function register(ctx, next) {
     }
 }
 
+/**
+ * login
+ *
+ * @example curl -H "Content-Type: application/json" -X POST -d '{ "username": "bell", "password": "secretpasas" }' localhost:4002/user/login
+ * @param ctx
+ * @param next
+ * @returns {*}
+ */
 export async function login(ctx, next) {
     let options = {
-        session: false,
-        successRedirect: '/booklist',
-        failureRedirect: '/login'
+        session: false
     };
     return passport.authenticate('local', options, (user) => {
         if (!user) {
@@ -45,12 +92,27 @@ export async function login(ctx, next) {
     })(ctx, next);
 }
 
-export async function updateUser(ctx, next) {
-    const user = ctx.body.user;
-    Object.assign(user, ctx.request.body.user);
-    await user.save();
+/**
+ * logout
+ *
+ * @example curl -H "Authorization: Bearer <token>" -X POST -d 'id=57ac5a7daded43ff231b648d'  localhost:4002/user/logout
+ * @param ctx
+ * @param next
+ * @returns {*}
+ */
+export async function logout(ctx, next) {
+    try {
+        const user = await User.findById(ctx.request.body.id);
+        if (!user) {
+            ctx.throw(404);
+        }
+        user.token = null;
+        await user.save();
+    } catch (err) {
+        ctx.throw(422, err.message);
+    }
+    ctx.status = 200;
     ctx.body = {
-        user
+        success: true
     };
 }
-

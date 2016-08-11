@@ -33,7 +33,7 @@ gulp.task('build', () => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch(src_js_files, ['build-js']);
+    gulp.watch(src_js_files, ['build']);
 });
 
 gulp.task('rebuild', () => {

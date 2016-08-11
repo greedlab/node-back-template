@@ -37,7 +37,7 @@ npm install --save-dev babel-preset-stage-0
 ## gulp
 
 ```
-npm install -g gulp
+npm install --save-dev gulp
 npm install --save-dev gulp-babel 
 npm install --save-dev gulp-changed
 npm install --save-dev gulp-livereload

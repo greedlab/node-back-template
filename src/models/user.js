@@ -4,12 +4,10 @@
 
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import config from '../../config';
+import config from '../config';
 import jwt from 'jsonwebtoken';
-import Promise from 'bluebird';
-
-Promise.promisifyAll(require("mongoose"));
-Promise.promisifyAll(require("bcrypt"));
+// import Promise from 'bluebird';
+mongoose.Promise = global.Promise;
 
 const User = new mongoose.Schema({
     type: { type: String, default: 'User' },

@@ -8,8 +8,27 @@ import passport from 'koa-passport';
 import config from '../config';
 import home from '../routes/home';
 import user from '../routes/user';
+import book from '../routes/book';
 
 const app = new koa();
+mongoose.Promise = global.Promise;
+
+// logger
+
+app.use(logger());
+
+// bodyParser
+
+app.use(bodyParser());
+
+// mongodb
+
+mongoose.connect(config.database);
+
+// passport
+
+require('../config/passport');
+app.use(passport.initialize());
 
 // router
 
@@ -17,24 +36,9 @@ app
     .use(home.router.routes())
     .use(home.router.allowedMethods())
     .use(user.router.routes())
-    .use(user.router.allowedMethods());
-
-// logger
-
-app.use(logger());
-
-// mongodb
-
-mongoose.connect(config.database);
-
-// bodyParser
-
-app.use(bodyParser());
-
-// passport
-
-require('../config/passport');
-app.use(passport.initialize());
+    .use(user.router.allowedMethods())
+    .use(book.router.routes())
+    .use(book.router.allowedMethods());
 
 // listen
 
