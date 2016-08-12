@@ -50,7 +50,6 @@ var list = exports.list = function () {
                         if (_context.t0 === 404 || _context.t0.name === 'CastError') {
                             ctx.throw(404);
                         }
-
                         ctx.throw(500);
 
                     case 12:
@@ -199,47 +198,31 @@ var login = exports.login = function () {
 
 var logout = exports.logout = function () {
     var _ref4 = (0, _bluebird.coroutine)(regeneratorRuntime.mark(function _callee4(ctx, next) {
-        var user;
+        var token;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
                 switch (_context4.prev = _context4.next) {
                     case 0:
-                        _context4.prev = 0;
-                        _context4.next = 3;
-                        return _user2.default.findById(ctx.request.body.id);
+                        try {
+                            token = (0, _auth.getToken)(ctx);
 
-                    case 3:
-                        user = _context4.sent;
-
-                        if (!user) {
-                            ctx.throw(404);
+                            if (token) {
+                                (0, _unvalidToken.addToken)(token);
+                            }
+                        } catch (err) {
+                            ctx.throw(422, err.message);
                         }
-                        user.token = null;
-                        _context4.next = 8;
-                        return user.save();
-
-                    case 8:
-                        _context4.next = 13;
-                        break;
-
-                    case 10:
-                        _context4.prev = 10;
-                        _context4.t0 = _context4['catch'](0);
-
-                        ctx.throw(422, _context4.t0.message);
-
-                    case 13:
                         ctx.status = 200;
                         ctx.body = {
                             success: true
                         };
 
-                    case 15:
+                    case 3:
                     case 'end':
                         return _context4.stop();
                 }
             }
-        }, _callee4, this, [[0, 10]]);
+        }, _callee4, this);
     }));
 
     return function logout(_x7, _x8) {
@@ -254,6 +237,10 @@ var _koaPassport2 = _interopRequireDefault(_koaPassport);
 var _user = require('../models/user');
 
 var _user2 = _interopRequireDefault(_user);
+
+var _unvalidToken = require('../utils/unvalid-token');
+
+var _auth = require('../utils/auth');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 //# sourceMappingURL=user.js.map

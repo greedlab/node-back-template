@@ -4,5 +4,8 @@
 
 export default {
     token: 'secret-jwt-token',
-    database: 'mongodb://test:test@localhost:27017/node-back-template-test'
+    mongodb: 'mongodb://test:test@localhost:27017/node-back-template-test',
+    redisOptions: {
+
+    }
 };

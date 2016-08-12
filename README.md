@@ -1,4 +1,4 @@
-# node-front-template [developing...]
+# node-front-template
 
 template for back end
 

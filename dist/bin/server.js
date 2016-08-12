@@ -39,7 +39,6 @@ var _book2 = _interopRequireDefault(_book);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = new _koa2.default();
-_mongoose2.default.Promise = global.Promise;
 
 // logger
 
@@ -51,7 +50,8 @@ app.use((0, _koaBodyparser2.default)());
 
 // mongodb
 
-_mongoose2.default.connect(_config2.default.database);
+_mongoose2.default.Promise = global.Promise;
+_mongoose2.default.connect(_config2.default.mongodb);
 
 // passport
 

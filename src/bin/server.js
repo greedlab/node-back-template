@@ -11,7 +11,6 @@ import user from '../routes/user';
 import book from '../routes/book';
 
 const app = new koa();
-mongoose.Promise = global.Promise;
 
 // logger
 
@@ -23,7 +22,8 @@ app.use(bodyParser());
 
 // mongodb
 
-mongoose.connect(config.database);
+mongoose.Promise = global.Promise;
+mongoose.connect(config.mongodb);
 
 // passport
 

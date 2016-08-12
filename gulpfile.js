@@ -8,7 +8,6 @@ const rename = require('gulp-rename');
 const runSequence = require('run-sequence');
 const del = require('del');
 const plumber = require('gulp-plumber');
-const glob = require("glob");
 
 const dist_dir = 'dist';
 

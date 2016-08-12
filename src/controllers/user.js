@@ -4,6 +4,8 @@
 
 import passport from 'koa-passport';
 import User from '../models/user';
+import {addToken} from '../utils/unvalid-token';
+import {getToken} from '../utils/auth';
 
 /**
  * list users
@@ -27,7 +29,6 @@ export async function list(ctx, next) {
         if (err === 404 || err.name === 'CastError') {
             ctx.throw(404);
         }
-
         ctx.throw(500);
     }
 
@@ -102,12 +103,10 @@ export async function login(ctx, next) {
  */
 export async function logout(ctx, next) {
     try {
-        const user = await User.findById(ctx.request.body.id);
-        if (!user) {
-            ctx.throw(404);
+        const token = getToken(ctx);
+        if (token) {
+            addToken(token);
         }
-        user.token = null;
-        await user.save();
     } catch (err) {
         ctx.throw(422, err.message);
     }

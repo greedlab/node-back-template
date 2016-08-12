@@ -16,7 +16,7 @@ var _bluebird = require('bluebird');
  */
 var ensureUser = exports.ensureUser = function () {
     var _ref = (0, _bluebird.coroutine)(regeneratorRuntime.mark(function _callee(ctx, next) {
-        var token, decoded, user;
+        var token, decoded, user, existed;
         return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
@@ -45,10 +45,18 @@ var ensureUser = exports.ensureUser = function () {
                         if (!user) {
                             ctx.throw(401);
                         }
+                        _context.next = 10;
+                        return unvalid_token.existed(token);
 
+                    case 10:
+                        existed = _context.sent;
+
+                        if (existed) {
+                            ctx.throw(401);
+                        }
                         return _context.abrupt('return', next());
 
-                    case 9:
+                    case 13:
                     case 'end':
                         return _context.stop();
                 }
@@ -73,6 +81,12 @@ var _config2 = _interopRequireDefault(_config);
 
 var _jsonwebtoken = require('jsonwebtoken');
 
+var _unvalidToken = require('../utils/unvalid-token');
+
+var unvalid_token = _interopRequireWildcard(_unvalidToken);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -81,6 +95,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @param ctx ctx.request.header.authorization = "Bearer <token>"
  * @returns {*}
  */
+/**
+ * Created by Bell on 16/8/10.
+ */
+
 function getToken(ctx) {
     var header = ctx.request.header.authorization;
     if (!header) {
@@ -96,7 +114,5 @@ function getToken(ctx) {
         return token;
     }
     return null;
-} /**
-   * Created by Bell on 16/8/10.
-   */
+}
 //# sourceMappingURL=auth.js.map

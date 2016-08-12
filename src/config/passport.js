@@ -6,18 +6,18 @@ import passport from 'koa-passport';
 import User from '../models/user';
 import { Strategy } from 'passport-local';
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-    try {
-        const user = await User.findById(id, '-password');
-        done(null, user);
-    } catch (err) {
-        done(err);
-    }
-});
+// passport.serializeUser((user, done) => {
+//     done(null, user.id);
+// });
+//
+// passport.deserializeUser(async (id, done) => {
+//     try {
+//         const user = await User.findById(id, '-password');
+//         done(null, user);
+//     } catch (err) {
+//         done(err);
+//     }
+// });
 
 passport.use('local', new Strategy({
     usernameField: 'username',

@@ -40,7 +40,6 @@ npm install --save-dev babel-preset-stage-0
 npm install --save-dev gulp
 npm install --save-dev gulp-babel 
 npm install --save-dev gulp-changed
-npm install --save-dev gulp-livereload
 npm install --save-dev gulp-plumber
 npm install --save-dev gulp-rename
 npm install --save-dev gulp-sourcemaps
@@ -52,6 +51,12 @@ npm install --save-dev run-sequence
 
 ```
 npm install --save mongoose
+```
+
+## redis
+
+```
+$ npm install --save redis
 ```
 
 ## auth
@@ -91,5 +96,5 @@ npm install -g pm2
 ## WebStorm
 
 * `Preferences > Languages & Frameworks > Node.js and NPm > Node interperter:v5.11.1 | enable Node.js Core library`
-* `Preferences > Languages & Frameworks > JavaScript > JavaScript language version > JSX Harmony`
+* `Preferences > Languages & Frameworks > JavaScript > JavaScript language version > ECMAScript`
 * `Preferences > Languages & Frameworks > JavaScript > Code Quality Tools > ESLint > Enable`
