@@ -76,7 +76,6 @@ npm install --save bcrypt
 ## other
 
 ```
-npm install --save request
 npm install --save bluebird
 npm install --save jsonwebtoken
 ```
