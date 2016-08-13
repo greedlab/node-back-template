@@ -6,60 +6,43 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from '../config';
 import jwt from 'jsonwebtoken';
-// import Promise from 'bluebird';
+import Promise from 'bluebird';
+
+const hashAsync = Promise.promisify(bcrypt.hash);
+const compareAsync = Promise.promisify(bcrypt.compare);
+
 mongoose.Promise = global.Promise;
 
 const User = new mongoose.Schema({
-    type: { type: String, default: 'User' },
-    name: { type: String },
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    type: {type: String, default: 'User'},
+    name: {type: String},
+    username: {type: String, required: true, unique: true},
+    password: {type: String, required: true}
 });
 
-User.pre('save', function preSave(next) {
+User.pre('save', async function preSave(next) {
     const user = this;
 
     if (!user.isModified('password')) {
         return next();
     }
-
-    new Promise((resolve, reject) => {
-        bcrypt.genSalt(10, (err, salt) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(salt);
-            }
-        });
-    })
-        .then(salt => {
-            bcrypt.hash(user.password, salt, (err, hash) => {
-                if (err) {
-                    throw new Error(err);
-                }
-                user.password = hash;
-                next(null);
-            });
-        })
-        .catch(err => next(err));
+    try {
+        const hash = await bcrypt.hashAsync(user.password, 10);
+        user.password = hash;
+        return next();
+    } catch (err) {
+        return next(err);
+    }
 });
 
-User.methods.validatePassword = function validatePassword(password) {
+User.methods.validatePassword = async function validatePassword(password) {
     const user = this;
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(isMatch);
-            }
-        });
-    });
+    return compareAsync(password, user.password);
 };
 
 User.methods.generateToken = function generateToken() {
     const user = this;
-    return jwt.sign({ id: user.id }, config.token);
+    return jwt.sign({id: user.id}, config.token);
 };
 
 export default mongoose.model('user', User);

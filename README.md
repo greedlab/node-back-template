@@ -7,7 +7,7 @@ English | [中文](README-CN.md)
 ## clone
 
 ```
-$ git clone https://github.com/greedlab/node-front-template.git
+$ git clone https://github.com/greedlab/node-back-template.git
 ```
 
 ## develop env

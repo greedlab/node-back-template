@@ -4,8 +4,8 @@
 
 import passport from 'koa-passport';
 import User from '../models/user';
-import {addToken} from '../utils/unvalid-token';
-import {getToken} from '../utils/auth';
+import { addToken } from '../utils/unvalid-token';
+import { getToken } from '../utils/auth';
 
 /**
  * list users
@@ -46,8 +46,6 @@ export async function list(ctx, next) {
  * @returns {*}
  */
 export async function register(ctx, next) {
-    console.log(ctx.request.body);
-    console.log(ctx.req.body);
     const user = new User(ctx.request.body);
     try {
         await user.save();

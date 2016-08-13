@@ -13,7 +13,6 @@ npm install --save koa@next
 npm install --save koa-router@next
 npm install --save koa-bodyparser@next
 npm install --save koa-logger@next
-npm install --save koa-static@next
 npm install --save koa-convert
 ```
 

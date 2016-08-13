@@ -26,10 +26,8 @@ export async function listBook(ctx, next) {
         if (err === 404 || err.name === 'CastError') {
             ctx.throw(404);
         }
-
         ctx.throw(500);
     }
-
     if(next) {
         return next();
     };
@@ -95,8 +93,12 @@ export async function showBook(ctx, next) {
  * @param next
  */
 export async function deleteBook(ctx, next) {
-    const book = new Book(ctx.request.body);
-    await book.remove();
+    try {
+        const book = new Book(ctx.request.body);
+        await book.remove();
+    } catch (err) {
+        ctx.throw(500);
+    }
     ctx.status = 200;
     ctx.body = {
         success: true
