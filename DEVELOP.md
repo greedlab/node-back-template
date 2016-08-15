@@ -80,18 +80,6 @@ npm install --save bluebird
 npm install --save jsonwebtoken
 ```
 
-## dev
-
-```shell
-npm install -g nodemon
-```
-
-## release
-
-```
-npm install -g pm2
-```
-
 ## WebStorm
 
 * `Preferences > Languages & Frameworks > Node.js and NPm > Node interperter:v5.11.1 | enable Node.js Core library`
