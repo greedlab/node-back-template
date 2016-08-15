@@ -13,7 +13,7 @@ $ git clone https://github.com/greedlab/node-back-template.git
 ## develop env
 
 ```
-$ npm install -g nodemon
+$ npm install -g gulp nodemon
 $ npm install
 $ gulp build
 $ gulp watch
@@ -23,7 +23,7 @@ $ npm run develop
 ## production env
 
 ```
-$ npm install -g pm2
+$ npm install -g gulp pm2
 $ npm install
 $ gulp release
 $ npm run release

@@ -11,7 +11,7 @@ let base_url = '/';
 let router = new Router({ prefix: base_url });
 
 router
-    .get('/', ensureUser, controller.index);
+    .get('/', controller.index);
 
 export default {
     baseUrl: base_url,
