@@ -5,7 +5,8 @@
 import User from '../models/user';
 import config from '../config';
 import { verify } from 'jsonwebtoken';
-import * as unvalid_token from '../utils/unvalid-token';
+// import * as unvalid_token from '../utils/unvalid-token';
+import UnvalidToken from '../models/unvalid-token';
 
 /**
  * get token from request header
@@ -55,9 +56,15 @@ export async function ensureUser(ctx, next) {
     if (!user) {
         ctx.throw(401);
     }
-    const existed = await unvalid_token.existed(token);
-    if (existed) {
+    const unvalidToken = await UnvalidToken.findOne(token);
+    if (unvalidToken) {
         ctx.throw(401);
     }
+
+    // const existed = await unvalid_token.existed(token);
+    // if (existed) {
+    //     ctx.throw(401);
+    // }
+
     return next();
 }
