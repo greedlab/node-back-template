@@ -5,7 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "develop": "PORT=4002 DEBUG=node-back-template* NODE_ENV=development nodemon -w dist -e js dist/app.js",
-    "release": "pm2 start dist/app.js  -i 0 --name node-back-template --watch"
+    "release": "PORT=4002 NODE_ENV=release pm2 start dist/app.js  -i 0 --name node-back-template --watch"
   },
   "repository": {
     "type": "git",
