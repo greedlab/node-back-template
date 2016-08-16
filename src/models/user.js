@@ -27,7 +27,7 @@ User.pre('save', async function preSave(next) {
         return next();
     }
     try {
-        const hash = await bcrypt.hashAsync(user.password, 10);
+        const hash = await hashAsync(user.password, 10);
         user.password = hash;
         return next();
     } catch (err) {
