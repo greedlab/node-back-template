@@ -45,5 +45,6 @@ jspm_packages
 # build
 dist
 
-# release
+# config
 eatj.js
+release.js

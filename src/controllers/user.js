@@ -4,8 +4,8 @@
 
 import passport from 'koa-passport';
 import User from '../models/user';
-import UnvalidToken from '../models/unvalid-token';
-// import { addToken } from '../utils/unvalid-token';
+// import UnvalidToken from '../models/unvalid-token';
+import { addToken } from '../utils/unvalid-token';
 import { getToken } from '../utils/auth';
 
 /**
@@ -104,9 +104,9 @@ export async function logout(ctx, next) {
     try {
         const token = getToken(ctx);
         if (token) {
-            const unvalidToken = new UnvalidToken({token});
-            await unvalidToken.save();
-            // addToken(token);
+            // const unvalidToken = new UnvalidToken({token});
+            // await unvalidToken.save();
+            addToken(token);
         }
     } catch (err) {
         ctx.throw(422, err.message);
