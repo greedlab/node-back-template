@@ -46,5 +46,4 @@ jspm_packages
 dist
 
 # config
-eatj.js
 release.js

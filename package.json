@@ -30,6 +30,7 @@
     "babel-polyfill": "^6.9.1",
     "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
+    "debug": "^2.2.0",
     "jsonwebtoken": "^7.1.7",
     "jwt-simple": "^0.5.0",
     "koa": "^2.0.0-alpha.4",

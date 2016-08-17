@@ -4,6 +4,10 @@
 
 import Book from '../models/book';
 
+import Debug from 'debug';
+import pkg from '../../package.json';
+const debug = new Debug(pkg.name);
+
 /**
  * list books
  *
@@ -43,6 +47,7 @@ export async function listBook(ctx, next) {
  * @returns {id: "XXXXXX", name: "book", price: "$100"}
  */
 export async function addBook(ctx, next) {
+    debug(ctx.request.body);
     const book = new Book(ctx.request.body);
     try {
         await book.save();
