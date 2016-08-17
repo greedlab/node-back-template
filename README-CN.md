@@ -15,7 +15,7 @@ $ git clone https://github.com/greedlab/node-back-template.git
 ```
 $ npm install -g gulp
 $ npm install -g nodemon
-$ npm install
+$ npm install (if not OS X use npm install --no-optional)
 $ gulp build
 $ gulp watch
 $ npm run develop
@@ -26,7 +26,7 @@ $ npm run develop
 ```
 $ npm install -g gulp
 $ npm install -g pm2
-$ npm install
-$ gulp release
+$ npm install (if not OS X use npm install --no-optional)
+$ gulp build
 $ npm run release
 ```
