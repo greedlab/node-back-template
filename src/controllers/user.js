@@ -4,9 +4,13 @@
 
 import passport from 'koa-passport';
 import User from '../models/user';
-import UnvalidToken from '../models/unvalid-token';
-// import { addToken } from '../utils/unvalid-token';
+// import UnvalidToken from '../models/unvalid-token';
+import { addToken } from '../utils/unvalid-token';
 import { getToken } from '../utils/auth';
+
+import Debug from 'debug';
+import pkg from '../../package.json';
+const debug = new Debug(pkg.name);
 
 /**
  * list users
@@ -47,11 +51,12 @@ export async function list(ctx, next) {
  * @returns {*}
  */
 export async function register(ctx, next) {
+    debug(ctx.request.body);
     const user = new User(ctx.request.body);
     try {
         await user.save();
     } catch (err) {
-        ctx.throw(422, err.message);
+        ctx.throw(422, 'register failed');
     }
 
     const token = user.generateToken();
@@ -80,7 +85,7 @@ export async function login(ctx, next) {
     };
     return passport.authenticate('local', options, (user) => {
         if (!user) {
-            ctx.throw(401);
+            ctx.throw('unvalid username or password', 401);
         }
         const token = user.generateToken();
         const response = user.toJSON();
@@ -95,7 +100,7 @@ export async function login(ctx, next) {
 /**
  * logout
  *
- * @example curl -H "Authorization: Bearer <token>" -X POST -d 'id=57ac5a7daded43ff231b648d'  localhost:4002/user/logout
+ * @example curl -H "Authorization: Bearer <token>" -X POST localhost:4002/user/logout
  * @param ctx
  * @param next
  * @returns {*}
@@ -104,9 +109,9 @@ export async function logout(ctx, next) {
     try {
         const token = getToken(ctx);
         if (token) {
-            const unvalidToken = new UnvalidToken({token});
-            await unvalidToken.save();
-            // addToken(token);
+            // const unvalidToken = new UnvalidToken({token});
+            // await unvalidToken.save();
+            addToken(token);
         }
     } catch (err) {
         ctx.throw(422, err.message);
