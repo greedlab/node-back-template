@@ -7,7 +7,7 @@ English | [中文](README-CN.md)
 ## clone
 
 ```
-$ git clone https://github.com/greedlab/node-back-template.git
+$ git clone --bare https://github.com/greedlab/node-back-template.git your-project-name
 ```
 
 ## develop env
@@ -32,4 +32,3 @@ $ npm run release
 ## Thanks
 
 * [koa2-api-boilerplate](https://github.com/adrianObel/koa2-api-boilerplate)
-

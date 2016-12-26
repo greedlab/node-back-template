@@ -7,7 +7,7 @@
 ## clone
 
 ```
-$ git clone https://github.com/greedlab/node-back-template.git
+$ git clone --bare https://github.com/greedlab/node-back-template.git your-project-name
 ```
 
 ## 安装依赖
